@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SecureBankingAPI.DTOs;
 
-// ── Auth DTOs ──────────────────────────────────────────────────────────────
 public class RegisterRequest
 {
     [Required, MaxLength(100)]
@@ -43,7 +42,6 @@ public class VerifyMfaRequest
     [Required] public string TotpCode { get; set; } = string.Empty;
 }
 
-// ── Transaction DTOs ───────────────────────────────────────────────────────
 public class DepositRequest
 {
     [Required, Range(0.01, 50000)]
@@ -80,7 +78,6 @@ public class TransactionResponse
     public DateTime CreatedAt    { get; set; }
 }
 
-// ── Account DTOs ───────────────────────────────────────────────────────────
 public class AccountResponse
 {
     public int     Id            { get; set; }
@@ -89,7 +86,6 @@ public class AccountResponse
     public string  AccountType   { get; set; } = string.Empty;
 }
 
-// ── Admin DTOs ─────────────────────────────────────────────────────────────
 public class UserManagementResponse
 {
     public int      Id                  { get; set; }
@@ -109,7 +105,6 @@ public class UpdateRoleRequest
     public string Role { get; set; } = string.Empty;
 }
 
-// ── Audit DTOs ─────────────────────────────────────────────────────────────
 public class AuditLogResponse
 {
     public int      Id            { get; set; }
@@ -123,7 +118,6 @@ public class AuditLogResponse
     public DateTime CreatedAt     { get; set; }
 }
 
-// ── Generic Responses ──────────────────────────────────────────────────────
 public class ApiResponse<T>
 {
     public bool   Success { get; set; }
