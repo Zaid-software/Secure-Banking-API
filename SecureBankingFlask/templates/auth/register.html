@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Register — SecureBank{% endblock %}
+
+{% block content %}
+<div class="auth-box">
+  <h1>🏦 SecureBank</h1>
+  <h2>Create Account</h2>
+
+  <form method="POST" action="{{ url_for('auth.register') }}" autocomplete="off">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username"
+             value="{{ username or '' }}"
+             required minlength="3" maxlength="100">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email"
+             value="{{ email or '' }}"
+             required maxlength="256">
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password"
+             required minlength="12" maxlength="200">
+      <small>Minimum 12 characters with uppercase, lowercase, number, and symbol.</small>
+    </div>
+
+    <div class="form-group">
+      <label for="confirm_password">Confirm Password</label>
+      <input type="password" id="confirm_password" name="confirm_password"
+             required minlength="12" maxlength="200">
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+  </form>
+
+  <p class="auth-link">
+    Already have an account? <a href="{{ url_for('auth.login') }}">Sign in</a>
+  </p>
+</div>
+{% endblock %}
