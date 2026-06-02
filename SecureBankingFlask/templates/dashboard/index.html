@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — SecureBank{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h2>Welcome, {{ username }}</h2>
+  <span class="badge badge-{{ role|lower }}">{{ role }}</span>
+</div>
+
+<!-- Account Balance Card -->
+{% if account %}
+<div class="card balance-card">
+  <div class="balance-label">Account Balance</div>
+  <div class="balance-amount">${{ "%.2f"|format(account.balance) }}</div>
+  <div class="account-number">Account: {{ account.accountNumber }} · {{ account.accountType }}</div>
+</div>
+{% else %}
+<div class="alert alert-warning">Could not load account information.</div>
+{% endif %}
+
+<!-- Quick Actions -->
+<div class="quick-actions">
+  <a href="{{ url_for('transactions.deposit') }}" class="action-card action-deposit">
+    <span class="action-icon">⬇</span>
+    <span>Deposit</span>
+  </a>
+  <a href="{{ url_for('transactions.withdraw') }}" class="action-card action-withdraw">
+    <span class="action-icon">⬆</span>
+    <span>Withdraw</span>
+  </a>
+  <a href="{{ url_for('transactions.transfer') }}" class="action-card action-transfer">
+    <span class="action-icon">↔</span>
+    <span>Transfer</span>
+  </a>
+  <a href="{{ url_for('transactions.upload') }}" class="action-card action-upload">
+    <span class="action-icon">📷</span>
+    <span>Upload Check</span>
+  </a>
+</div>
+
+<!-- Recent Transactions -->
+<div class="card">
+  <div class="card-header">
+    <h3>Recent Transactions</h3>
+    <a href="{{ url_for('transactions.history') }}" class="btn btn-sm">View All</a>
+  </div>
+
+  {% if recent_transactions %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Balance After</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for txn in recent_transactions %}
+      <tr>
+        <td>{{ txn.createdAt[:10] }}</td>
+        <td>
+          <span class="badge badge-{{ txn.type|lower }}">{{ txn.type }}</span>
+        </td>
+        <td class="amount {{ 'amount-negative' if txn.type == 'Withdrawal' else 'amount-positive' }}">
+          {{ '-' if txn.type == 'Withdrawal' else '+' }}${{ "%.2f"|format(txn.amount) }}
+        </td>
+        <td>${{ "%.2f"|format(txn.balanceAfter) }}</td>
+        <td>{{ txn.description or '—' }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty-state">No transactions yet.</p>
+  {% endif %}
+</div>
+
+<!-- MFA Setup Prompt -->
+<div class="card card-info">
+  <h3>🔒 Security</h3>
+  <p>Enable two-factor authentication for extra account security.</p>
+  <a href="{{ url_for('auth.mfa_setup') }}" class="btn btn-secondary">Setup MFA</a>
+</div>
+{% endblock %}
