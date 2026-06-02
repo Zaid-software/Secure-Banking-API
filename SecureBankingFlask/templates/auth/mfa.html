@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}MFA Code — SecureBank{% endblock %}
+
+{% block content %}
+<div class="auth-box">
+  <h1>🏦 SecureBank</h1>
+  <h2>Two-Factor Authentication</h2>
+  <p>Enter the 6-digit code from your authenticator app.</p>
+
+  <form method="POST" action="{{ url_for('auth.login_mfa') }}">
+    <div class="form-group">
+      <label for="totp_code">Authentication Code</label>
+      <input type="text" id="totp_code" name="totp_code"
+             required minlength="6" maxlength="6"
+             pattern="[0-9]{6}" placeholder="000000"
+             autocomplete="one-time-code">
+    </div>
+    <button type="submit" class="btn btn-primary btn-full">Verify</button>
+  </form>
+
+  <p class="auth-link"><a href="{{ url_for('auth.login') }}">Back to login</a></p>
+</div>
+{% endblock %}
