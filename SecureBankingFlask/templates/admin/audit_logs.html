@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Audit Logs — SecureBank{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h2>Audit Logs</h2>
+  <div>
+    <a href="{{ url_for('admin.verify_integrity') }}" class="btn btn-secondary">Verify Integrity</a>
+    <a href="{{ url_for('admin.index') }}" class="btn btn-secondary">Back to Admin</a>
+  </div>
+</div>
+
+<div class="card">
+  <table class="table table-sm">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>User</th>
+        <th>Action</th>
+        <th>Entity</th>
+        <th>IP Address</th>
+        <th>Result</th>
+        <th>Hash</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for log in logs %}
+      <tr class="{{ 'row-fail' if not log.success }}">
+        <td>{{ log.createdAt[:19].replace('T', ' ') }}</td>
+        <td>{{ log.username or '—' }}</td>
+        <td>{{ log.action }}</td>
+        <td>{{ log.entityType }}</td>
+        <td>{{ log.ipAddress }}</td>
+        <td>
+          {% if log.success %}
+            <span class="badge badge-success">✓ OK</span>
+          {% else %}
+            <span class="badge badge-danger">✗ {{ log.failureReason or 'Failed' }}</span>
+          {% endif %}
+        </td>
+        <td><code class="sig">{{ log.currentHash[:12] }}…</code></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    {% if page > 1 %}
+    <a href="{{ url_for('admin.audit_logs', page=page-1) }}" class="btn btn-sm">← Previous</a>
+    {% endif %}
+    <span>Page {{ page }}</span>
+    <a href="{{ url_for('admin.audit_logs', page=page+1) }}" class="btn btn-sm">Next →</a>
+  </div>
+</div>
+{% endblock %}

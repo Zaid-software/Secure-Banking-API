@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Admin — SecureBank{% endblock %}
+{% block content %}
+<div class="page-header">
+  <h2>Admin Dashboard</h2>
+  <div>
+    <a href="{{ url_for('admin.audit_logs') }}" class="btn btn-secondary">View Audit Logs</a>
+    <a href="{{ url_for('admin.verify_integrity') }}" class="btn btn-secondary">Verify Integrity</a>
+  </div>
+</div>
+
+<div class="card">
+  <h3>User Management</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>MFA</th>
+        <th>Failed Logins</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td><span class="badge badge-{{ user.role|lower }}">{{ user.role }}</span></td>
+        <td>
+          {% if user.isLocked %}
+            <span class="badge badge-danger">Locked</span>
+          {% else %}
+            <span class="badge badge-success">Active</span>
+          {% endif %}
+        </td>
+        <td>{{ '✓' if user.mfaEnabled else '✗' }}</td>
+        <td>{{ user.failedLoginAttempts }}</td>
+        <td class="actions">
+          <!-- Role update -->
+          <form method="POST"
+                action="{{ url_for('admin.update_role', user_id=user.id) }}"
+                style="display:inline">
+            <select name="role">
+              <option value="Customer" {{ 'selected' if user.role=='Customer' }}>Customer</option>
+              <option value="Teller"   {{ 'selected' if user.role=='Teller' }}>Teller</option>
+              <option value="Admin"    {{ 'selected' if user.role=='Admin' }}>Admin</option>
+            </select>
+            <button type="submit" class="btn btn-sm">Update</button>
+          </form>
+
+          <!-- Unlock -->
+          {% if user.isLocked %}
+          <form method="POST"
+                action="{{ url_for('admin.unlock_user', user_id=user.id) }}"
+                style="display:inline">
+            <button type="submit" class="btn btn-sm btn-warning">Unlock</button>
+          </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
