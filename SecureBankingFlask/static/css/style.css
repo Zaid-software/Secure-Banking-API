@@ -1,0 +1,209 @@
+/* static/css/style.css — SecureBank */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f0f2f5;
+  color: #1a1a2e;
+  min-height: 100vh;
+}
+
+/* ── Navbar ─────────────────────────────────────────────── */
+.navbar {
+  background: #1a1a2e;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-brand { color: #fff; font-size: 1.2rem; font-weight: 700; }
+.nav-links  { display: flex; align-items: center; gap: 1rem; }
+.nav-links a { color: #cbd5e1; text-decoration: none; font-size: 0.9rem; }
+.nav-links a:hover { color: #fff; }
+.nav-admin  { color: #f59e0b !important; font-weight: 600; }
+.nav-logout { color: #f87171 !important; }
+.nav-user   { color: #94a3b8; font-size: 0.85rem; }
+
+/* ── Container ──────────────────────────────────────────── */
+.container { max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; }
+
+/* ── Alerts ─────────────────────────────────────────────── */
+.alert {
+  padding: 0.85rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+.alert-success { background: #d1fae5; color: #065f46; border-left: 4px solid #10b981; }
+.alert-danger  { background: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444; }
+.alert-warning { background: #fef3c7; color: #92400e; border-left: 4px solid #f59e0b; }
+.alert-info    { background: #dbeafe; color: #1e40af; border-left: 4px solid #3b82f6; }
+
+/* ── Cards ──────────────────────────────────────────────── */
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.card-info { border-left: 4px solid #3b82f6; }
+
+/* ── Auth Box ───────────────────────────────────────────── */
+.auth-box {
+  max-width: 420px;
+  margin: 4rem auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+  text-align: center;
+}
+.auth-box h1 { font-size: 2rem; margin-bottom: 0.25rem; }
+.auth-box h2 { font-size: 1.3rem; color: #475569; margin-bottom: 1.5rem; }
+.auth-link   { margin-top: 1.25rem; color: #64748b; font-size: 0.9rem; }
+.auth-link a { color: #3b82f6; text-decoration: none; }
+
+/* ── Forms ──────────────────────────────────────────────── */
+.form-group { text-align: left; margin-bottom: 1.1rem; }
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.35rem;
+}
+.form-group input, .form-group select {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+.form-group input:focus, .form-group select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+.form-group small { color: #6b7280; font-size: 0.8rem; margin-top: 0.25rem; display: block; }
+.form-card { max-width: 520px; margin: 0 auto; }
+
+/* ── Buttons ────────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.btn:hover { opacity: 0.85; }
+.btn-full    { display: block; width: 100%; text-align: center; margin-top: 0.5rem; }
+.btn-primary { background: #3b82f6; color: #fff; }
+.btn-danger  { background: #ef4444; color: #fff; }
+.btn-secondary { background: #e2e8f0; color: #1e293b; }
+.btn-warning { background: #f59e0b; color: #fff; }
+.btn-sm      { padding: 0.35rem 0.75rem; font-size: 0.8rem; }
+
+/* ── Balance Card ───────────────────────────────────────── */
+.balance-card    { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; }
+.balance-label   { font-size: 0.9rem; opacity: 0.7; margin-bottom: 0.5rem; }
+.balance-amount  { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+.account-number  { font-size: 0.85rem; opacity: 0.6; }
+
+/* ── Quick Actions ──────────────────────────────────────── */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.action-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  color: #1a1a2e;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+.action-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+.action-icon { font-size: 1.75rem; }
+.action-deposit  { border-top: 3px solid #10b981; }
+.action-withdraw { border-top: 3px solid #ef4444; }
+.action-transfer { border-top: 3px solid #3b82f6; }
+.action-upload   { border-top: 3px solid #f59e0b; }
+
+/* ── Table ──────────────────────────────────────────────── */
+.table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.table th {
+  text-align: left;
+  padding: 0.65rem 0.75rem;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.table td { padding: 0.65rem 0.75rem; border-bottom: 1px solid #f1f5f9; }
+.table-sm td, .table-sm th { padding: 0.5rem 0.6rem; font-size: 0.85rem; }
+.row-fail { background: #fff5f5; }
+
+/* ── Badges ─────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.badge-success, .badge-deposit    { background: #d1fae5; color: #065f46; }
+.badge-danger,  .badge-withdrawal { background: #fee2e2; color: #991b1b; }
+.badge-warning                    { background: #fef3c7; color: #92400e; }
+.badge-transfer                   { background: #dbeafe; color: #1e40af; }
+.badge-customer                   { background: #e0e7ff; color: #3730a3; }
+.badge-teller                     { background: #fef3c7; color: #92400e; }
+.badge-admin                      { background: #fee2e2; color: #991b1b; }
+
+/* ── Amount colors ──────────────────────────────────────── */
+.amount-positive { color: #059669; font-weight: 600; }
+.amount-negative { color: #dc2626; font-weight: 600; }
+
+/* ── Misc ───────────────────────────────────────────────── */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.page-header h2 { font-size: 1.5rem; }
+.empty-state     { color: #94a3b8; text-align: center; padding: 2rem; }
+.sig             { font-size: 0.75rem; color: #64748b; }
+.manual-key, .qr-uri { display: block; background: #f8fafc; padding: 0.75rem; border-radius: 8px; word-break: break-all; margin-top: 0.5rem; }
+.mfa-setup       { text-align: left; margin: 1rem 0; }
+.pagination      { display: flex; align-items: center; gap: 1rem; margin-top: 1rem; color: #64748b; }
+.actions         { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+.error-page      { text-align: center; padding: 5rem 1rem; }
+.error-page h1   { font-size: 5rem; color: #cbd5e1; }
+.error-page p    { color: #64748b; margin: 1rem 0 2rem; }
