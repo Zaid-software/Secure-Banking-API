@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Transaction History — SecureBank{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Transaction History</h2>
+
+  {% if transactions %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Amount</th>
+        <th>Balance After</th>
+        <th>Description</th>
+        <th>Signature</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for txn in transactions %}
+      <tr>
+        <td>{{ txn.createdAt[:19].replace('T', ' ') }}</td>
+        <td><span class="badge badge-{{ txn.type|lower }}">{{ txn.type }}</span></td>
+        <td class="{{ 'amount-negative' if txn.type == 'Withdrawal' else 'amount-positive' }}">
+          {{ '-' if txn.type == 'Withdrawal' else '+' }}${{ "%.2f"|format(txn.amount) }}
+        </td>
+        <td>${{ "%.2f"|format(txn.balanceAfter) }}</td>
+        <td>{{ txn.description or '—' }}</td>
+        <td><code class="sig">{{ txn.signature[:16] }}…</code></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty-state">No transactions found.</p>
+  {% endif %}
+
+  <a href="{{ url_for('dashboard.index') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}

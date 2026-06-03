@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Upload Check — SecureBank{% endblock %}
+{% block content %}
+<div class="card form-card">
+  <h2>📷 Upload Check for Deposit</h2>
+  <p>Upload a JPG or PNG image of your check. Maximum file size: 5MB.</p>
+  <p>Files are scanned for malware and stored encrypted on the server.</p>
+
+  <form method="POST" action="{{ url_for('transactions.upload') }}"
+        enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="file">Check Image</label>
+      <input type="file" id="file" name="file"
+             accept=".jpg,.jpeg,.png" required>
+      <small>Accepted formats: JPG, PNG only</small>
+    </div>
+    <button type="submit" class="btn btn-primary btn-full">Upload &amp; Scan</button>
+    <a href="{{ url_for('dashboard.index') }}" class="btn btn-secondary btn-full">Cancel</a>
+  </form>
+</div>
+{% endblock %}
